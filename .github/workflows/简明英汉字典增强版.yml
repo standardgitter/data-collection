@@ -24,7 +24,6 @@ jobs:
       - name: Run a multi-line script
         run: |
           wget https://github.com/skywind3000/ECDICT/releases/download/1.0.28/ecdict-sqlite-28.zip
-          unzip ecdict-sqlite-28.zip
           ls -l
           
       - name: Create Release
@@ -39,7 +38,7 @@ jobs:
             Release 
             - 简明英汉字典增强版
             - https://github.com/skywind3000/ECDICT
-            - stardict.db
+            - ecdict-sqlite-28.zip
             - 2017
           draft: false
           prerelease: false
@@ -51,7 +50,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: stardict.db
-          asset_name: stardict
+          asset_path: ecdict-sqlite-28.zip
+          asset_name: ecdict-sqlite-28.zip
           asset_content_type: application/zip         
 
