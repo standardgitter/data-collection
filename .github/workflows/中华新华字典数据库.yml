@@ -26,4 +26,36 @@ jobs:
         run: |
           wget https://github.com/pwxcoo/chinese-xinhua/archive/refs/heads/master.zip
           unzip master.zip
-          ls -l
+          mv chinese-xinhua-master/data ./
+          mv chinese-xinhua-master/README.md ./data/
+          rm -rf chinese-xinhua-master
+          ls -l data
+          #zip -r data.zip data
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: 中华新华字典数据库
+          release_name: 中华新华字典数据库
+          body: |
+            Release 
+            - 中华新华字典数据库
+            - https://github.com/pwxcoo/chinese-xinhua
+            - data
+            - 17 Jan 2019
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: data
+          asset_name: data
+          asset_content_type: application/zip
