@@ -23,7 +23,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           wget https://github.com/PrimerLi/ID/raw/master/id.json
-          wget https://github.com/PrimerLi/ID/raw/master/ID.csv
+          #wget https://github.com/PrimerLi/ID/raw/master/ID.csv
           
       - name: Create Release
         id: create_release
@@ -49,6 +49,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: id.json ID.csv
+          asset_path: id.json
           asset_name: id
           asset_content_type: application/zip
